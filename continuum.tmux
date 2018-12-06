@@ -49,9 +49,9 @@ number_of_sessions() {
 		sed "s/ //g"
 }
 
-# when tmux server is first started, number of sessions is 0
+# check if the server is less than 10 seconds old
 just_started_tmux_server() {
-	[ "$(number_of_sessions)" -eq 0 ]
+	[ "$(tmux ls -F '#{start_time}')" -gt "$(($(date +%s)-10))" ]
 }
 
 start_auto_restore_in_background() {
